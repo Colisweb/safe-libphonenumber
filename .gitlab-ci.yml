@@ -1,0 +1,25 @@
+include:
+  - 'https://colisweb-open-source.gitlab.io/ci-common/templates/scala.yml'
+
+compile safe-libphonenumber:
+  extends: .sbt-compile-cross
+
+test core:
+  extends: .sbt-test-cross
+  tags:
+   - aws
+
+test jruby:
+  extends: .sbt-test-cross
+  tags:
+    - aws
+
+version safe-libphonenumber:
+  extends: .version
+  tags:
+    - aws
+
+publish safe-libphonenumber:
+  extends: .sonatype-publish
+  tags:
+    - aws

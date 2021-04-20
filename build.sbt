@@ -3,6 +3,9 @@ ThisBuild / scalaVersion      := "2.12.8"
 ThisBuild / scalafmtOnCompile := true
 ThisBuild / scalafmtCheck     := true
 ThisBuild / scalafmtSbtCheck  := true
+ThisBuild / pushRemoteCacheTo := Some(
+  MavenCache("local-cache", baseDirectory.value / sys.env.getOrElse("CACHE_PATH", "sbt-cache"))
+)
 
 lazy val projectName = "safe-libphonenumber"
 
@@ -39,27 +42,4 @@ lazy val noPublishSettings = Seq(
   publish := {},
   publishLocal := {},
   publishArtifact := false
-)
-
-inThisBuild(
-  List(
-    credentials += Credentials(Path.userHome / ".bintray" / ".credentials"),
-    licenses := Seq("Apache-2.0" -> url("http://opensource.org/licenses/https://opensource.org/licenses/Apache-2.0")),
-    homepage := Some(url("https://github.com/colisweb/safe-libphonenumber")),
-    bintrayOrganization := Some("colisweb"),
-    bintrayReleaseOnPublish := true,
-    publishMavenStyle := true,
-    pomExtra := (
-      <scm>
-        <url>git@github.com:colisweb/safe-libphonenumber.git</url>
-        <connection>scm:git:git@github.com:colisweb/safe-libphonenumber.git</connection>
-      </scm>
-        <developers>
-          <developer>
-            <id>guizmaii</id>
-            <name>Jules Ivanic</name>
-          </developer>
-        </developers>
-    )
-  )
 )
